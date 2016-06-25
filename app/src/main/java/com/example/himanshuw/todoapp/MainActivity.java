@@ -1,17 +1,21 @@
 package com.example.himanshuw.todoapp;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    ArrayAdapter<String> adapter= null;
+    ListView listView =null;
+    private ArrayList<String> items;
 
 
     @Override
@@ -19,23 +23,40 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-    }
 
+        listView =(ListView)findViewById(R.id.listView);
+
+        items = new ArrayList<>();
+
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
+
+        listView.setAdapter(adapter);
+
+        ListViewListener();
+
+    }
 
     public void AddItem(View view)
     {
-        List<String> stringList = new ArrayList<String>();
 
         EditText  editText =(EditText)findViewById(R.id.editTextView);
-
         String text = editText.getText().toString();
+        adapter.add(text);
+        editText.setText("");
+        Log.i(MainActivity.class.getSimpleName(),"---Item Added------->>"+text);
 
-        stringList.add(text);
+    }
 
-        for (String item : stringList)
-        {
-            Log.i("Test","---------->>"+item);
-        }
+    public void ListViewListener(){
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
+                items.remove(position);
+                adapter.notifyDataSetChanged();
+
+                return true;
+            }
+        });
     }
 }
