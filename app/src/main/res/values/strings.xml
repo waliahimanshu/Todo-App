@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">SimpleTodo</string>
     <string name="enter_a_new_task">Enter a new task</string>
+    <string name="item_delete_message">Item Deleted</string>
 </resources>
