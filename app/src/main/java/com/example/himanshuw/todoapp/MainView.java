@@ -5,4 +5,6 @@ package com.example.himanshuw.todoapp;
  */
 public interface MainView {
     String getItem();
+
+    void showEmptyItemError(int resourceId);
 }

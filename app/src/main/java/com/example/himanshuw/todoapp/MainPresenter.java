@@ -16,6 +16,11 @@ public class MainPresenter {
 
     public void OnAppLoad() {
 
+        String item = mainView.getItem();
+        if(item.isEmpty())
+        {
+            mainView.showEmptyItemError(R.string.empty_item_error_message);
+        }
     }
 }
 

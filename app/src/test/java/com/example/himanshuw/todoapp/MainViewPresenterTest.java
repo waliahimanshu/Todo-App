@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.w3c.dom.Text;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
@@ -32,7 +33,6 @@ public class MainViewPresenterTest {
         presenter = new MainPresenter(view, dataProvide);
     }
 
-
     @Test
     public void shouldShowErrorMessageWhenItemIsBlank() throws  Exception{
 
@@ -40,7 +40,7 @@ public class MainViewPresenterTest {
 
         presenter.OnAppLoad();
 
-
+        verify(view).showEmptyItemError(R.string.empty_item_error_message);
 
     }
 }

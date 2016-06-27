@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements MainView{
     private int requestCode = 007;
     MainPresenter mainPresenter;
 
+    EditText editText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -131,5 +133,19 @@ public class MainActivity extends AppCompatActivity implements MainView{
         }
     }
 
+    @Override
+    public String getItem() {
+       editText = (EditText) findViewById(R.id.editTextView); //// TODO: 27/06/2016  inject view
+
+       String text = editText.getText().toString();
+
+        return text;
+    }
+
+    @Override
+    public void showEmptyItemError(int resourceId) {
+
+        editText.setError(getString(resourceId));
+    }
 }
 

@@ -2,4 +2,5 @@
     <string name="app_name">SimpleTodo</string>
     <string name="enter_a_new_task">Enter a new task</string>
     <string name="item_delete_message">Item Deleted</string>
+    <string name="empty_item_error_message">Hmm You did not write anything</string>
 </resources>
