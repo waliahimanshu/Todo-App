@@ -20,30 +20,26 @@ import java.util.List;
 
 import static com.example.himanshuw.todoapp.R.string.item_delete_message;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainView{
 
     ArrayAdapter<String> adapter = null;
     ListView listView = null;
     private ArrayList<String> items;
     private int requestCode = 007;
+    MainPresenter mainPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
-        ReadItemsFromFile();
-
         setContentView(R.layout.activity_main);
 
-        listView = (ListView) findViewById(R.id.listView);
+        mainPresenter = new MainPresenter(this,new StorageProvider());
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
-
-        listView.setAdapter(adapter);
+        LoadSavedData();
 
         DeleteItemListViewListener();
-
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -56,6 +52,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void LoadSavedData() {
+
+        mainPresenter.OnAppLoad();
+
+
+        ReadItemsFromFile();
+
+        listView = (ListView) findViewById(R.id.listView);
+
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
+
+        listView.setAdapter(adapter);
     }
 
     @Override
