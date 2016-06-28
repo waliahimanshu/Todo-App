@@ -30,7 +30,6 @@
          android:layout_height="wrap_content"
          android:id="@+id/AddButton"
          android:text="Add Item"
-         android:onClick="AddItem"
          android:layout_alignParentBottom="true"
          android:layout_alignParentEnd="true" />
 

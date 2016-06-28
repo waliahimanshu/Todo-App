@@ -10,17 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import org.apache.commons.io.FileUtils;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.example.himanshuw.todoapp.R.string.item_delete_message;
 
-public class MainActivity extends AppCompatActivity implements MainView{
+public class MainActivity extends AppCompatActivity implements MainView, View.OnClickListener {
 
     ArrayAdapter<String> adapter = null;
     ListView listView = null;
@@ -37,7 +31,11 @@ public class MainActivity extends AppCompatActivity implements MainView{
 
         setContentView(R.layout.activity_main);
 
-        mainPresenter = new MainPresenter(this,new StorageProvider());
+        findViewById(R.id.AddButton).setOnClickListener(this);
+
+        mainPresenter = new MainPresenter(this, new StorageProvider(getApplicationContext()));
+
+
 
         LoadSavedData();
 
@@ -57,41 +55,33 @@ public class MainActivity extends AppCompatActivity implements MainView{
     }
 
     private void LoadSavedData() {
-
-        mainPresenter.OnAppLoad();
-
-
-        ReadItemsFromFile();
-
-        listView = (ListView) findViewById(R.id.listView);
-
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
-
-        listView.setAdapter(adapter);
+        mainPresenter.OnAppLoadShowStoredListData();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (resultCode == RESULT_OK && requestCode==007) {
+        if (resultCode == RESULT_OK && requestCode == 007) {
             String name = data.getExtras().getString("UpdatedItem");
             int position = data.getExtras().getInt("Position", 0);
 
             items.set(position, name);
             adapter.notifyDataSetChanged();
 
-            Toast.makeText(this, "Item Updated to : " + name , Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Item Updated to : " + name, Toast.LENGTH_LONG).show();
         }
     }
 
     public void AddItem(View view) {
 
-        EditText editText = (EditText) findViewById(R.id.editTextView);
-        String text = editText.getText().toString();
-        adapter.add(text);
-        editText.setText("");
-        WriteItems();
-        Log.i(MainActivity.class.getSimpleName(), "---Item Added------->>" + text);
+//        EditText editText = (EditText) findViewById(R.id.editTextView);
+//        String text = editText.getText().toString();
+//        adapter.add(text);
+//        editText.setText("");
+//
+//        mainPresenter.WriteData(items);
+//
+//                Log.i(MainActivity.class.getSimpleName(), "---Item Added------->>" + text);
 
     }
 
@@ -103,41 +93,17 @@ public class MainActivity extends AppCompatActivity implements MainView{
                 items.remove(position);
                 adapter.notifyDataSetChanged();
                 Toast.makeText(MainActivity.this, item_delete_message, Toast.LENGTH_SHORT).show();
-                WriteItems();
+                mainPresenter.WriteData(items);
                 return true;
             }
         });
     }
 
-    public void ReadItemsFromFile() {
-        File filesDir = getFilesDir();
-        File toDoFile = new File(filesDir, "todo.txt");
-
-        try {
-            List list = FileUtils.readLines(toDoFile);
-            items = new ArrayList<>(list);
-
-        } catch (IOException ex) {
-            items = new ArrayList<>();
-            ex.printStackTrace();
-        }
-    }
-
-    public void WriteItems() {
-        File filesDir = getFilesDir();
-        File todoFile = new File(filesDir, "todo.txt");
-        try {
-            FileUtils.writeLines(todoFile, items);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
-    public String getItem() {
-       editText = (EditText) findViewById(R.id.editTextView); //// TODO: 27/06/2016  inject view
+    public String getUserEnteredItem() {
+        editText = (EditText) findViewById(R.id.editTextView); //// TODO: 27/06/2016  inject view
 
-       String text = editText.getText().toString();
+        String text = editText.getText().toString();
 
         return text;
     }
@@ -146,6 +112,29 @@ public class MainActivity extends AppCompatActivity implements MainView{
     public void showEmptyItemError(int resourceId) {
 
         editText.setError(getString(resourceId));
+    }
+
+    @Override
+    public void PopulateListViewOnAdapter(ArrayList<String> Item) {
+
+        items = Item;
+        listView = (ListView) findViewById(R.id.listView);//// TODO: 28/06/2016 inject view
+
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Item);
+
+        listView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onClick(View v) {
+        EditText editText = (EditText) findViewById(R.id.editTextView);
+        String text = editText.getText().toString();
+        adapter.add(text);
+        editText.setText("");
+
+        mainPresenter.WriteData(items);
+
+        Log.i(MainActivity.class.getSimpleName(), "---Item Added------->>" + text);
     }
 }
 
