@@ -9,30 +9,31 @@ public class MainPresenter {
 
 
     private MainView mainView;
-    private StorageProvider storageProvider;
+    private StorageInteractor storageInteractor;
 
-    public MainPresenter(MainView mainView, StorageProvider storageProvider) {
+    public MainPresenter(MainView mainView, StorageInteractor storageInteractor) {
         this.mainView = mainView;
-        this.storageProvider = storageProvider;
+        this.storageInteractor = storageInteractor;
     }
 
-    public void OnClickSaveItemButton() {
+    public void ValidateItemEntered() {
 
         String item = mainView.getUserEnteredItem();
-        if(item.isEmpty())
+                if(item.isEmpty()) //// TODO: 28/06/2016 if check can be done in Interactor ?
         {
             mainView.showEmptyItemError(R.string.empty_item_error_message);
         }
     }
 
     public void OnAppLoadShowStoredListData() {
-        ArrayList<String> savedData = storageProvider.getSavedDataFromFile();
+        ArrayList<String> savedData = storageInteractor.getSavedDataFromFile();
         mainView.PopulateListViewOnAdapter(savedData);
     }
 
 
+
     public void WriteData(ArrayList<String> items) {
-        storageProvider.WriteToFile(items);
+        storageInteractor.WriteToFile(items);
     }
 }
 

@@ -17,12 +17,12 @@ import static org.mockito.Mockito.when;
 /**
  * Created by HimanshuW on 28/06/2016.
  */
-public class StorageProviderTest extends Activity{
+public class StorageInteractorTest extends Activity{
 
     @Mock
     Context context;
 
-    StorageProvider storageProvider;
+    StorageInteractor storageInteractor;
 
     @Test
     @Ignore
@@ -32,9 +32,9 @@ public class StorageProviderTest extends Activity{
 
         when(context.getFilesDir()).thenReturn(new File("/data/data/com.example.himanshuw.todoapp/files/"));
 
-         storageProvider = new StorageProvider(context);
+         storageInteractor = new StorageInteractor(context);
 
-        ArrayList<String> savedData = storageProvider.getSavedDataFromFile();
+        ArrayList<String> savedData = storageInteractor.getSavedDataFromFile();
 
         assertNotNull(savedData);
 
@@ -48,8 +48,8 @@ public class StorageProviderTest extends Activity{
 
         items.add("NewItem");
 
-        storageProvider = new StorageProvider(context);
-        storageProvider.WriteToFile(items);
+        storageInteractor = new StorageInteractor(context);
+        storageInteractor.WriteToFile(items);
 
 
 

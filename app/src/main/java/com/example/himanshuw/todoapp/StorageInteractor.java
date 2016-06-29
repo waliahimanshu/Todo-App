@@ -12,12 +12,12 @@ import java.util.List;
 /**
  * Created by HimanshuW on 27/06/2016.
  */
-public class StorageProvider {
+public class StorageInteractor {
 
     private Context applicationContext;
 
     ArrayList<String> items=null;
-    public StorageProvider(Context applicationContext) {
+    public StorageInteractor(Context applicationContext) {
 
         this.applicationContext = applicationContext;
     }

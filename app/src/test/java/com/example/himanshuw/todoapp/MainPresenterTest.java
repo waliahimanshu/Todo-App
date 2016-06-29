@@ -23,7 +23,7 @@ public class MainPresenterTest {
     MainPresenter mainPresenter;
 
     @Mock
-    StorageProvider storageProvider;
+    StorageInteractor storageInteractor;
 
     @Test
     public void testPassSavedDataToView() throws Exception {
@@ -33,9 +33,9 @@ public class MainPresenterTest {
         items.add("Item2");
         items.add("Item3");
 
-        MainPresenter mainPresenter = new MainPresenter(mainView, storageProvider);
+        MainPresenter mainPresenter = new MainPresenter(mainView, storageInteractor);
 
-        when(storageProvider.getSavedDataFromFile()).thenReturn(items);
+        when(storageInteractor.getSavedDataFromFile()).thenReturn(items);
 
       //  mainPresenter.PassSavedDataToView(items);
 

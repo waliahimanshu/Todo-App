@@ -22,7 +22,7 @@ public class MainViewPresenterTest {
     MainView view ;
 
     @Mock
-    StorageProvider dataProvide ;
+    StorageInteractor dataProvide ;
 
     MainPresenter presenter;
 
@@ -37,7 +37,7 @@ public class MainViewPresenterTest {
 
         when(view.getUserEnteredItem()).thenReturn("");
 
-        presenter.OnClickSaveItemButton();
+        presenter.ValidateItemEntered();
 
         verify(view).showEmptyItemError(R.string.empty_item_error_message);
 
