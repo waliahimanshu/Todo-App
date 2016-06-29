@@ -7,34 +7,49 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.example.himanshuw.todoapp.R.string.item_delete_message;
 
 public class MainActivity extends AppCompatActivity implements MainView, View.OnClickListener, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     ArrayAdapter<String> adapter = null;
+
+
+    @BindView(R.id.listView)
     ListView listView = null;
+
     private ArrayList<String> items;
     private int requestCode = 007;
     MainPresenter mainPresenter;
 
+    @BindView(R.id.editTextView)
     EditText editText;
+
+    @BindView(R.id.AddButton)
+    Button button;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        mainPresenter = new MainPresenter(this, new StorageInteractor(getApplicationContext()));
+        button= (Button)findViewById(R.id.AddButton);
+        button.setOnClickListener(this);
 
-
-        findViewById(R.id.AddButton).setOnClickListener(this);
-
-        listView=  (ListView) findViewById(R.id.listView);
         listView.setOnItemClickListener(this);
         listView.setOnItemLongClickListener(this);
+
         mainPresenter = new MainPresenter(this, new StorageInteractor(getApplicationContext()));
         LoadSavedData();
     }
@@ -57,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
 
     @Override
     public String getUserEnteredItem() {
-        editText = (EditText) findViewById(R.id.editTextView); //// TODO: 27/06/2016  inject view
         String text = editText.getText().toString();
         return text;
     }
@@ -70,14 +84,12 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
     @Override
     public void PopulateListViewOnAdapter(ArrayList<String> Item) {
         items = Item;
-        listView = (ListView) findViewById(R.id.listView);//// TODO: 28/06/2016 inject view
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Item);
         listView.setAdapter(adapter);
     }
 
-    @Override
+   @OnClick(R.id.AddButton)
     public void onClick(View v) { //add save item
-        EditText editText = (EditText) findViewById(R.id.editTextView);
         String text = editText.getText().toString();
         adapter.add(text);
         editText.setText("");
