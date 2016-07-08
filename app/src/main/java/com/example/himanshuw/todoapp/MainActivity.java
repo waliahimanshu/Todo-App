@@ -13,10 +13,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 import static com.example.himanshuw.todoapp.R.string.item_delete_message;
 
 public class MainActivity extends AppCompatActivity implements MainView, View.OnClickListener, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
@@ -24,17 +20,14 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
     ArrayAdapter<String> adapter = null;
 
 
-    @BindView(R.id.listView)
     ListView listView = null;
 
     private ArrayList<String> items;
     private int requestCode = 007;
     MainPresenter mainPresenter;
 
-    @BindView(R.id.editTextView)
     EditText editText;
 
-    @BindView(R.id.AddButton)
     Button button;
 
 
@@ -42,10 +35,14 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
         mainPresenter = new MainPresenter(this, new StorageInteractor(getApplicationContext()));
+
         button= (Button)findViewById(R.id.AddButton);
         button.setOnClickListener(this);
+
+
+        listView= (ListView) findViewById(R.id.listView);
+        editText= (EditText) findViewById(R.id.editTextView);
 
         listView.setOnItemClickListener(this);
         listView.setOnItemLongClickListener(this);
@@ -88,8 +85,8 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
         listView.setAdapter(adapter);
     }
 
-   @OnClick(R.id.AddButton)
     public void onClick(View v) { //add save item
+        editText= (EditText) findViewById(R.id.editTextView);
         String text = editText.getText().toString();
         adapter.add(text);
         editText.setText("");

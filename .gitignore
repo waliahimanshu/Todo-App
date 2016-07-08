@@ -39,3 +39,20 @@ captures/
 
 # Keystore files
 *.jks
+
+# Intellij IDEA (see https://intellij-support.jetbrains.com/entries/23393067)
+# and derivatives (including Android Studio)
+.idea/
+#.idea/workspace.xml - remove # and delete '.idea/' if it better suit your needs.
+/**/*.iml
+.gradle
+build/
+
+# Older IDEA project formats
+/*/out
+/*/*/build
+/*/*/production
+*.iws
+*.ipr
+*~
+*.swp
