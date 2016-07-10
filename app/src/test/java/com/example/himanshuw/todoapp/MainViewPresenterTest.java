@@ -1,5 +1,9 @@
 package com.example.himanshuw.todoapp;
 
+import com.example.himanshuw.todoapp.data.StorageInteractor;
+import com.example.himanshuw.todoapp.mainTask.MainPresenter;
+import com.example.himanshuw.todoapp.mainTask.MainTaskFragment;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +23,7 @@ import static org.mockito.Mockito.when;
 public class MainViewPresenterTest {
 
     @Mock
-    MainView view ;
+    MainTaskFragment view ;
 
     @Mock
     StorageInteractor dataProvide ;
@@ -29,7 +33,7 @@ public class MainViewPresenterTest {
     @Before
     public void  SetUp() throws  Exception
     {
-        presenter = new MainPresenter(view, dataProvide);
+        //presenter = new MainPresenter(view, dataProvide);
     }
 
     @Test

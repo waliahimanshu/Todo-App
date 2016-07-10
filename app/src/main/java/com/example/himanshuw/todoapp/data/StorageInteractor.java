@@ -1,4 +1,4 @@
-package com.example.himanshuw.todoapp;
+package com.example.himanshuw.todoapp.data;
 
 import android.content.Context;
 

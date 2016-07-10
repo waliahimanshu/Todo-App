@@ -1,5 +1,9 @@
 package com.example.himanshuw.todoapp;
 
+import com.example.himanshuw.todoapp.data.StorageInteractor;
+import com.example.himanshuw.todoapp.mainTask.MainPresenter;
+import com.example.himanshuw.todoapp.mainTask.MainTaskFragment;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -7,7 +11,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
@@ -17,8 +20,7 @@ import static org.mockito.Mockito.when;
 public class MainPresenterTest {
 
     @Mock
-    MainView mainView;
-
+    MainTaskFragment mainTaskFragment;
     @Mock
     MainPresenter mainPresenter;
 
@@ -33,7 +35,7 @@ public class MainPresenterTest {
         items.add("Item2");
         items.add("Item3");
 
-        MainPresenter mainPresenter = new MainPresenter(mainView, storageInteractor);
+       // MainPresenter mainPresenter = new MainPresenter(mainView, storageInteractor);
 
         when(storageInteractor.getSavedDataFromFile()).thenReturn(items);
 

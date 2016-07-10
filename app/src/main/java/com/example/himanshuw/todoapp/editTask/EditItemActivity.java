@@ -1,4 +1,4 @@
-package com.example.himanshuw.todoapp;
+package com.example.himanshuw.todoapp.editTask;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,13 +7,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.himanshuw.todoapp.R;
+
 public class EditItemActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_edit_item);
+        setContentView(R.layout.edittask_activity);
 
         String selectedItem = getIntent().getStringExtra("SelectedItem");
 

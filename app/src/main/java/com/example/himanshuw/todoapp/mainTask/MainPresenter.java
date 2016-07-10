@@ -1,4 +1,7 @@
-package com.example.himanshuw.todoapp;
+package com.example.himanshuw.todoapp.mainTask;
+
+import com.example.himanshuw.todoapp.R;
+import com.example.himanshuw.todoapp.data.StorageInteractor;
 
 import java.util.ArrayList;
 
@@ -8,10 +11,10 @@ import java.util.ArrayList;
 public class MainPresenter {
 
 
-    private MainView mainView;
+    private MainTaskFragment mainView;
     private StorageInteractor storageInteractor;
 
-    public MainPresenter(MainView mainView, StorageInteractor storageInteractor) {
+    public MainPresenter(MainTaskFragment mainView, StorageInteractor storageInteractor) {
         this.mainView = mainView;
         this.storageInteractor = storageInteractor;
     }
