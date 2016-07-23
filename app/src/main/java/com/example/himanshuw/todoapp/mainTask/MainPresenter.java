@@ -8,38 +8,44 @@ import java.util.ArrayList;
 /**
  * Created by HimanshuW on 27/06/2016.
  */
-public class MainPresenter {
+public class MainPresenter implements MainTaskContract.Presenter {
 
 
     private MainTaskFragment mainView;
     private StorageInteractor storageInteractor;
+    private MainTaskContract.View view;
 
-    public MainPresenter(MainTaskFragment mainView, StorageInteractor storageInteractor) {
+    public MainPresenter(MainTaskFragment mainView, StorageInteractor storageInteractor, MainTaskContract.View mainTaskContractView) {
         this.mainView = mainView;
         this.storageInteractor = storageInteractor;
+        this.view = mainTaskContractView;
     }
 
+    @Override
     public void ValidateItemEntered() {
 
         String item = mainView.getUserEnteredItem();
-                if(item.isEmpty()) //// TODO: 28/06/2016 if check can be done in Interactor ?
+        if (item.isEmpty()) //// TODO: 28/06/2016 if check can be done in Interactor ?
         {
-            mainView.showEmptyItemError(R.string.empty_item_error_message);
+//            mainView.(R.string.empty_item_error_message);
         }
     }
 
-    public void OnAppLoadShowStoredListData() {
-        ArrayList<String> savedData = storageInteractor.getSavedDataFromFile();
-        mainView.PopulateListViewOnAdapter(savedData);
+    @Override
+    public void getUserEnteredTask() {
+
     }
 
+    @Override
+    public void getSavedTasks() {
 
+        ArrayList<String> savedData = storageInteractor.getSavedDataFromFile();
+        mainView.ShowSavedTasksOnLoad(savedData);
+    }
 
-    public void WriteData(ArrayList<String> items) {
+    @Override
+    public void UpdateSavedTasks(ArrayList<String> items) {
         storageInteractor.WriteToFile(items);
+
     }
 }
-
-
-
-

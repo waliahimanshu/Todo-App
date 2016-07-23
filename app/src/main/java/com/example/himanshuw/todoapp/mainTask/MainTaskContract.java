@@ -8,14 +8,24 @@ import java.util.ArrayList;
 public interface MainTaskContract {
 
     interface View {
+
         String getUserEnteredItem();
 
-        void showEmptyItemError(int resourceId);
+        void ShowSavedTasksOnLoad(ArrayList<String> Item);
 
-        void PopulateListViewOnAdapter(ArrayList<String> Item);
+
     }
 
-    interface  Presenter {
+    interface Presenter {
+
+        void getUserEnteredTask();
+
+        void getSavedTasks();
+
+        void UpdateSavedTasks(ArrayList<String> items);
+
+       void ValidateItemEntered();
+
 
     }
 }
