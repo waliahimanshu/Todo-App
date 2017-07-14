@@ -8,9 +8,11 @@ public interface MainTaskContract {
 
         String getUserEnteredItem();
 
-        void ShowSavedTasksOnLoad(ArrayList<String> Item);
+        void showSavedTasksOnLoad(ArrayList<String> Item);
 
         void populateListViewOnAdapter(ArrayList<String> Item);
+
+        void showEmptyItemError(int empty_item_error_message);
     }
 
     interface Presenter {
@@ -21,8 +23,6 @@ public interface MainTaskContract {
 
         void UpdateSavedTasks(ArrayList<String> items);
 
-       void ValidateItemEntered();
-
-
+        void validateItemEntered();
     }
 }

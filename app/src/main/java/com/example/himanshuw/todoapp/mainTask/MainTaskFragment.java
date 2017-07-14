@@ -48,7 +48,7 @@ public class MainTaskFragment extends Fragment implements MainTaskContract.View,
     public void onCreate(Bundle savedInstanceState) {
 
         Context applicationContext = getActivity().getApplicationContext();
-        mainPresenter = new MainPresenter(this, new StorageInteractor(applicationContext), null);
+        mainPresenter = new MainPresenter(new StorageInteractor(applicationContext), null);
         super.onCreate(savedInstanceState);
     }
 
@@ -76,10 +76,20 @@ public class MainTaskFragment extends Fragment implements MainTaskContract.View,
     }
 
     @Override
-    public void ShowSavedTasksOnLoad(ArrayList<String> Item) { //on load present saved data works
+    public void showSavedTasksOnLoad(ArrayList<String> Item) { //on load present saved data works
         items = Item;
         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, Item);
         listView.setAdapter(adapter);
+    }
+
+    @Override
+    public void populateListViewOnAdapter(ArrayList<String> Item) {
+
+    }
+
+    @Override
+    public void showEmptyItemError(int empty_item_error_message) {
+
     }
 
     public void onClick(View v) { //add save item working

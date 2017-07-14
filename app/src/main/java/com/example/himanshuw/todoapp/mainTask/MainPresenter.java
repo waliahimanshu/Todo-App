@@ -1,30 +1,25 @@
 package com.example.himanshuw.todoapp.mainTask;
 
-import com.example.himanshuw.todoapp.R;
 import com.example.himanshuw.todoapp.data.StorageInteractor;
 
 import java.util.ArrayList;
 
-public class MainPresenter {
+public class MainPresenter implements MainTaskContract.Presenter {
 
-
-    private MainTaskContract.View mainView;
     private StorageInteractor storageInteractor;
     private MainTaskContract.View view;
 
-    public MainPresenter(MainTaskFragment mainView, StorageInteractor storageInteractor, MainTaskContract.View mainTaskContractView) {
-        this.mainView = mainView;
+    public MainPresenter(StorageInteractor storageInteractor, MainTaskContract.View mainTaskContractView) {
         this.storageInteractor = storageInteractor;
         this.view = mainTaskContractView;
     }
 
     @Override
-    public void ValidateItemEntered() {
+    public void validateItemEntered() {
 
-        String item = mainView.getUserEnteredItem();
-        if (item.isEmpty()) //// TODO: 28/06/2016 if check can be done in Interactor ?
-        {
-//            mainView.(R.string.empty_item_error_message);
+        String item = view.getUserEnteredItem();
+        if (item.isEmpty()) {
+//            view.(R.string.empty_item_error_message);
         }
     }
 
@@ -35,14 +30,12 @@ public class MainPresenter {
 
     @Override
     public void getSavedTasks() {
-
         ArrayList<String> savedData = storageInteractor.getSavedDataFromFile();
-        mainView.ShowSavedTasksOnLoad(savedData);
+        view.showSavedTasksOnLoad(savedData);
     }
 
     @Override
     public void UpdateSavedTasks(ArrayList<String> items) {
         storageInteractor.WriteToFile(items);
-
     }
 }
