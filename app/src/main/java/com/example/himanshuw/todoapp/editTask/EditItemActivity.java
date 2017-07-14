@@ -16,15 +16,12 @@ public class EditItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.edittask_activity);
-
         String selectedItem = getIntent().getStringExtra("SelectedItem");
-
-        Log.i(EditItemActivity.class.getSimpleName(),"SelectedItem "+ selectedItem);
+        Log.i(EditItemActivity.class.getSimpleName(), "SelectedItem " + selectedItem);
 
         EditText edit = (EditText) findViewById(R.id.editItemText);
         edit.setText(selectedItem);
         edit.setSelection(edit.getText().length());
-
     }
 
     public void UpdateItem(View view) {
@@ -33,13 +30,12 @@ public class EditItemActivity extends AppCompatActivity {
         Intent updatedData = new Intent();
 
         updatedData.putExtra("UpdatedItem", edit.getText().toString());
-        Integer position = getIntent().getIntExtra("Position",0);
-        updatedData.putExtra("Position",position);
+        Integer position = getIntent().getIntExtra("Position", 0);
+        updatedData.putExtra("Position", position);
 
-        Log.i(EditItemActivity.class.getSimpleName(),"UpdateClicked "+ edit.getText().toString());
+        Log.i(EditItemActivity.class.getSimpleName(), "UpdateClicked " + edit.getText().toString());
 
         setResult(RESULT_OK, updatedData);
         finish();
-
     }
 }

@@ -70,13 +70,13 @@ public class MainTaskFragment extends Fragment implements MainTaskContract.View,
         Context applicationContext = getActivity().getApplicationContext();
 
         mainPresenter = new MainPresenter(this, new StorageInteractor(applicationContext));
-        LoadSavedData();
+        loadSavedData();
 
         return root;
     }
 
-    private void LoadSavedData() {
-        mainPresenter.OnAppLoadShowStoredListData();
+    private void loadSavedData() {
+        mainPresenter.onAppLoadShowStoredListData();
     }
 
     @Override
@@ -95,7 +95,7 @@ public class MainTaskFragment extends Fragment implements MainTaskContract.View,
     }
 
     @Override
-    public void PopulateListViewOnAdapter(ArrayList<String> Item) { //on load present saved data works
+    public void populateListViewOnAdapter(ArrayList<String> Item) { //on load present saved data works
         items = Item;
         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, Item);
         listView.setAdapter(adapter);
@@ -106,7 +106,7 @@ public class MainTaskFragment extends Fragment implements MainTaskContract.View,
         String text = editText.getText().toString();
         adapter.add(text);
         editText.setText("");
-        mainPresenter.WriteData(items);
+        mainPresenter.writeData(items);
         Log.i(MainActivity.class.getSimpleName(), "---Item Added------->>" + text);
     }
 
@@ -123,7 +123,7 @@ public class MainTaskFragment extends Fragment implements MainTaskContract.View,
         items.remove(position);
         adapter.notifyDataSetChanged();
         Toast.makeText(getActivity(), item_delete_message, Toast.LENGTH_SHORT).show();
-        mainPresenter.WriteData(items);
+        mainPresenter.writeData(items);
         return true;
     }
 

@@ -9,16 +9,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by HimanshuW on 27/06/2016.
- */
+
 public class StorageInteractor {
 
     private Context applicationContext;
 
-    ArrayList<String> items=null;
-    public StorageInteractor(Context applicationContext) {
+    private ArrayList<String> items = null;
 
+    public StorageInteractor(Context applicationContext) {
         this.applicationContext = applicationContext;
     }
 
@@ -28,21 +26,19 @@ public class StorageInteractor {
 
         File toDoFile = new File(filesDir, "todo.txt");
 
+        try {
+            List list = FileUtils.readLines(toDoFile);
+            items = new ArrayList<>(list);
 
-            try {
-                List list = FileUtils.readLines(toDoFile);
-                items = new ArrayList<>(list);
-
-            } catch (IOException ex) {
-                items = new ArrayList<>();
-                ex.printStackTrace();
-            }
-         return items;
+        } catch (IOException ex) {
+            items = new ArrayList<>();
+            ex.printStackTrace();
+        }
+        return items;
     }
 
 
-    public void WriteToFile(ArrayList<String> items){
-
+    public void WriteToFile(ArrayList<String> items) {
         File filesDir = applicationContext.getFilesDir();
         File todoFile = new File(filesDir, "todo.txt");
         try {
@@ -50,9 +46,5 @@ public class StorageInteractor {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
-
-
 }

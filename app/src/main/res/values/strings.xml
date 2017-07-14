@@ -3,4 +3,7 @@
     <string name="enter_a_new_task">Enter a new task</string>
     <string name="item_delete_message">Item Deleted</string>
     <string name="empty_item_error_message">Hmm You did not write anything</string>
+    <string name="edit_item_below">Edit Item Below:</string>
+    <string name="save">Save</string>
+    <string name="add_item">Add Item</string>
 </resources>

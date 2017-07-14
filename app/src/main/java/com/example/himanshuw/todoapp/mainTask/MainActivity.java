@@ -13,7 +13,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.maintask_activity);
 
-
         MainTaskFragment tasksFragment =
                 (MainTaskFragment) getSupportFragmentManager().findFragmentById(R.id.mainTaskFragmentPlaceholder);
         if (tasksFragment == null) {
@@ -22,6 +21,5 @@ public class MainActivity extends AppCompatActivity {
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), tasksFragment, R.id.mainTaskFragmentPlaceholder);
         }
     }
-
 }
 

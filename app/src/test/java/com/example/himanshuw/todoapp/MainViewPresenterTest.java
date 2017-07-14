@@ -2,7 +2,7 @@ package com.example.himanshuw.todoapp;
 
 import com.example.himanshuw.todoapp.data.StorageInteractor;
 import com.example.himanshuw.todoapp.mainTask.MainPresenter;
-import com.example.himanshuw.todoapp.mainTask.MainTaskFragment;
+import com.example.himanshuw.todoapp.mainTask.MainTaskContract;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,39 +15,30 @@ import java.util.ArrayList;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-/**
- * Created by HimanshuW on 27/06/2016.
- */
-
 @RunWith(MockitoJUnitRunner.class)
 public class MainViewPresenterTest {
 
     @Mock
-    MainTaskFragment view ;
+    MainTaskContract.View view ;
 
     @Mock
     StorageInteractor dataProvide ;
 
-    MainPresenter presenter;
+    private MainPresenter presenter;
 
     @Before
-    public void  SetUp() throws  Exception
-    {
-        //presenter = new MainPresenter(view, dataProvide);
+    public void  SetUp() throws  Exception {
+        presenter = new MainPresenter(view, dataProvide);
     }
 
     @Test
     public void shouldShowErrorMessageWhenItemIsBlank() throws  Exception{
-
         when(view.getUserEnteredItem()).thenReturn("");
 
-        presenter.ValidateItemEntered();
+        presenter.validateItemEntered();
 
         verify(view).showEmptyItemError(R.string.empty_item_error_message);
-
     }
-
-
 
     @Test
     public void shouldLoadSavedDataOnAppStart() throws  Exception{
@@ -59,9 +50,8 @@ public class MainViewPresenterTest {
 
         when(dataProvide.getSavedDataFromFile()).thenReturn(items);
 
-        presenter.OnAppLoadShowStoredListData();
+        presenter.onAppLoadShowStoredListData();
 
-        verify(view).PopulateListViewOnAdapter(items);
-
+        verify(view).populateListViewOnAdapter(items);
     }
 }

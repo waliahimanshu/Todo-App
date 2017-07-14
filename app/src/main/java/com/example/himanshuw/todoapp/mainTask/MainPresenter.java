@@ -5,21 +5,18 @@ import com.example.himanshuw.todoapp.data.StorageInteractor;
 
 import java.util.ArrayList;
 
-/**
- * Created by HimanshuW on 27/06/2016.
- */
 public class MainPresenter {
 
 
-    private MainTaskFragment mainView;
+    private MainTaskContract.View mainView;
     private StorageInteractor storageInteractor;
 
-    public MainPresenter(MainTaskFragment mainView, StorageInteractor storageInteractor) {
+    public MainPresenter(MainTaskContract.View mainView, StorageInteractor storageInteractor) {
         this.mainView = mainView;
         this.storageInteractor = storageInteractor;
     }
 
-    public void ValidateItemEntered() {
+    public void validateItemEntered() {
 
         String item = mainView.getUserEnteredItem();
                 if(item.isEmpty()) //// TODO: 28/06/2016 if check can be done in Interactor ?
@@ -28,18 +25,13 @@ public class MainPresenter {
         }
     }
 
-    public void OnAppLoadShowStoredListData() {
+    public void onAppLoadShowStoredListData() {
         ArrayList<String> savedData = storageInteractor.getSavedDataFromFile();
-        mainView.PopulateListViewOnAdapter(savedData);
+        mainView.populateListViewOnAdapter(savedData);
     }
 
-
-
-    public void WriteData(ArrayList<String> items) {
+    void writeData(ArrayList<String> items) {
         storageInteractor.WriteToFile(items);
     }
 }
-
-
-
 
