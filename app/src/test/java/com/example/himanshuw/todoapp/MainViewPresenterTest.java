@@ -50,8 +50,9 @@ public class MainViewPresenterTest {
 
         when(dataProvide.getSavedDataFromFile()).thenReturn(items);
 
-        presenter.onAppLoadShowStoredListData();
+        presenter.getSavedTasks();
 
-        verify(view).populateListViewOnAdapter(items);
+        verify(view).ShowSavedTasksOnLoad(items);
+
     }
 }

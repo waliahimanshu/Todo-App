@@ -24,12 +24,12 @@ import java.util.ArrayList;
 import static com.example.himanshuw.todoapp.R.string.item_delete_message;
 
 public class MainTaskFragment extends Fragment implements MainTaskContract.View,
-                                                          View.OnClickListener,
-                                                          AdapterView.OnItemClickListener,
-                                                          AdapterView.OnItemLongClickListener {
+        View.OnClickListener,
+        AdapterView.OnItemClickListener,
+        AdapterView.OnItemLongClickListener {
 
     private static final int RESULT_OK = 7;
-    EditText editText=null;
+    EditText editText = null;
     ListView listView = null;
     MainPresenter mainPresenter;
     private ArrayList<String> items;
@@ -46,6 +46,9 @@ public class MainTaskFragment extends Fragment implements MainTaskContract.View,
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+        Context applicationContext = getActivity().getApplicationContext();
+        mainPresenter = new MainPresenter(this, new StorageInteractor(applicationContext), null);
         super.onCreate(savedInstanceState);
     }
 
@@ -56,32 +59,15 @@ public class MainTaskFragment extends Fragment implements MainTaskContract.View,
         root = inflater.inflate(R.layout.maintask_fragment, container, false);
 
         editText = (EditText) root.findViewById(R.id.editTextView);
-
-
         Button button = (Button) root.findViewById(R.id.AddButton);
         button.setOnClickListener(this);
-
-
         listView = (ListView) root.findViewById(R.id.listView);
-
         listView.setOnItemClickListener(this);
         listView.setOnItemLongClickListener(this);
 
-        Context applicationContext = getActivity().getApplicationContext();
 
-        mainPresenter = new MainPresenter(this, new StorageInteractor(applicationContext));
-        loadSavedData();
-
+        mainPresenter.getSavedTasks();
         return root;
-    }
-
-    private void loadSavedData() {
-        mainPresenter.onAppLoadShowStoredListData();
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
     }
 
     @Override
@@ -90,12 +76,7 @@ public class MainTaskFragment extends Fragment implements MainTaskContract.View,
     }
 
     @Override
-    public void showEmptyItemError(int resourceId) {
-        editText.setError(getString(resourceId));
-    }
-
-    @Override
-    public void populateListViewOnAdapter(ArrayList<String> Item) { //on load present saved data works
+    public void ShowSavedTasksOnLoad(ArrayList<String> Item) { //on load present saved data works
         items = Item;
         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, Item);
         listView.setAdapter(adapter);
@@ -104,9 +85,15 @@ public class MainTaskFragment extends Fragment implements MainTaskContract.View,
     public void onClick(View v) { //add save item working
         editText = (EditText) root.findViewById(R.id.editTextView);
         String text = editText.getText().toString();
+
+
+        if (text == null || text.isEmpty())
+        {
+            editText.setError(getString(R.string.empty_item_error_message));
+        }
         adapter.add(text);
         editText.setText("");
-        mainPresenter.writeData(items);
+        mainPresenter.UpdateSavedTasks(items);
         Log.i(MainActivity.class.getSimpleName(), "---Item Added------->>" + text);
     }
 
@@ -123,19 +110,19 @@ public class MainTaskFragment extends Fragment implements MainTaskContract.View,
         items.remove(position);
         adapter.notifyDataSetChanged();
         Toast.makeText(getActivity(), item_delete_message, Toast.LENGTH_SHORT).show();
-        mainPresenter.writeData(items);
+        mainPresenter.UpdateSavedTasks(items);
         return true;
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-       // if (resultCode == RESULT_OK && requestCode == 7) {
-            String name = data.getExtras().getString("UpdatedItem");
-            int position = data.getExtras().getInt("Position", 0);
-            items.set(position, name);
-            adapter.notifyDataSetChanged();
-            Toast.makeText(getContext(), "Item Updated to : " + name, Toast.LENGTH_LONG).show();
-       // }
+        // if (resultCode == RESULT_OK && requestCode == 7) {
+        String name = data.getExtras().getString("UpdatedItem");
+        int position = data.getExtras().getInt("Position", 0);
+        items.set(position, name);
+        adapter.notifyDataSetChanged();
+        Toast.makeText(getContext(), "Item Updated to : " + name, Toast.LENGTH_LONG).show();
+        // }
     }
 }

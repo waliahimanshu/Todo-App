@@ -10,28 +10,39 @@ public class MainPresenter {
 
     private MainTaskContract.View mainView;
     private StorageInteractor storageInteractor;
+    private MainTaskContract.View view;
 
-    public MainPresenter(MainTaskContract.View mainView, StorageInteractor storageInteractor) {
+    public MainPresenter(MainTaskFragment mainView, StorageInteractor storageInteractor, MainTaskContract.View mainTaskContractView) {
         this.mainView = mainView;
         this.storageInteractor = storageInteractor;
+        this.view = mainTaskContractView;
     }
 
-    public void validateItemEntered() {
+    @Override
+    public void ValidateItemEntered() {
 
         String item = mainView.getUserEnteredItem();
-                if(item.isEmpty()) //// TODO: 28/06/2016 if check can be done in Interactor ?
+        if (item.isEmpty()) //// TODO: 28/06/2016 if check can be done in Interactor ?
         {
-            mainView.showEmptyItemError(R.string.empty_item_error_message);
+//            mainView.(R.string.empty_item_error_message);
         }
     }
 
-    public void onAppLoadShowStoredListData() {
-        ArrayList<String> savedData = storageInteractor.getSavedDataFromFile();
-        mainView.populateListViewOnAdapter(savedData);
+    @Override
+    public void getUserEnteredTask() {
+
     }
 
-    void writeData(ArrayList<String> items) {
+    @Override
+    public void getSavedTasks() {
+
+        ArrayList<String> savedData = storageInteractor.getSavedDataFromFile();
+        mainView.ShowSavedTasksOnLoad(savedData);
+    }
+
+    @Override
+    public void UpdateSavedTasks(ArrayList<String> items) {
         storageInteractor.WriteToFile(items);
+
     }
 }
-
