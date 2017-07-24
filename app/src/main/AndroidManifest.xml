@@ -15,7 +15,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".editTask.EditItemActivity"></activity>
+        <activity android:name=".editTask.EditItemActivity" />
+        
+        <provider
+            android:authorities="com.example.himanshuw.todoapp.provider"
+            android:name=".data.TodosProvider"
+            android:exported="false"/> <!--not available for other apps-->
     </application>
 
 </manifest>
