@@ -14,22 +14,17 @@ public class StorageInteractor {
 
     private Context applicationContext;
 
-    private ArrayList<String> items = null;
-
     public StorageInteractor(Context applicationContext) {
         this.applicationContext = applicationContext;
     }
 
     public ArrayList<String> getSavedDataFromFile() {
-
         File filesDir = applicationContext.getFilesDir();
-
         File toDoFile = new File(filesDir, "todo.txt");
-
+        ArrayList items;
         try {
             List list = FileUtils.readLines(toDoFile);
             items = new ArrayList<>(list);
-
         } catch (IOException ex) {
             items = new ArrayList<>();
             ex.printStackTrace();
@@ -37,8 +32,7 @@ public class StorageInteractor {
         return items;
     }
 
-
-    public void WriteToFile(ArrayList<String> items) {
+    public void writeToFile(ArrayList<String> items) {
         File filesDir = applicationContext.getFilesDir();
         File todoFile = new File(filesDir, "todo.txt");
         try {

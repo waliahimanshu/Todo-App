@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.himanshuw.todoapp.Util;
+package com.example.himanshuw.todoapp.util;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;

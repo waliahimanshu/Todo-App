@@ -21,7 +21,7 @@ public interface MainTaskContract {
 
         void getSavedTasks();
 
-        void UpdateSavedTasks(ArrayList<String> items);
+        void updateSavedTasks(ArrayList<String> items);
 
         void validateItemEntered();
     }

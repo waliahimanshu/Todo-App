@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.himanshuw.todoapp.R;
-import com.example.himanshuw.todoapp.Util.ActivityUtils;
+import com.example.himanshuw.todoapp.util.ActivityUtils;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -48,7 +48,7 @@ public class MainTaskFragment extends Fragment implements MainTaskContract.View,
     public void onCreate(Bundle savedInstanceState) {
 
         Context applicationContext = getActivity().getApplicationContext();
-        mainPresenter = new MainPresenter(new StorageInteractor(applicationContext), null);
+        mainPresenter = new MainPresenter(new StorageInteractor(applicationContext), this);
         super.onCreate(savedInstanceState);
     }
 
@@ -96,14 +96,13 @@ public class MainTaskFragment extends Fragment implements MainTaskContract.View,
         editText = (EditText) root.findViewById(R.id.editTextView);
         String text = editText.getText().toString();
 
-
         if (text == null || text.isEmpty())
         {
             editText.setError(getString(R.string.empty_item_error_message));
         }
         adapter.add(text);
         editText.setText("");
-        mainPresenter.UpdateSavedTasks(items);
+        mainPresenter.updateSavedTasks(items);
         Log.i(MainActivity.class.getSimpleName(), "---Item Added------->>" + text);
     }
 
@@ -120,7 +119,7 @@ public class MainTaskFragment extends Fragment implements MainTaskContract.View,
         items.remove(position);
         adapter.notifyDataSetChanged();
         Toast.makeText(getActivity(), item_delete_message, Toast.LENGTH_SHORT).show();
-        mainPresenter.UpdateSavedTasks(items);
+        mainPresenter.updateSavedTasks(items);
         return true;
     }
 

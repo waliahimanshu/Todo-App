@@ -51,7 +51,7 @@ public class StorageInteractorTest extends Activity{
         items.add("NewItem");
 
         storageInteractor = new StorageInteractor(context);
-        storageInteractor.WriteToFile(items);
+        storageInteractor.writeToFile(items);
 
 
 

@@ -28,7 +28,7 @@ public class MainPresenterTest {
 
     @Before
     public void setUp() throws Exception {
-        mainPresenter = new MainPresenter(mainView, storageInteractor);
+        mainPresenter = new MainPresenter(storageInteractor,mainView);
 
     }
 
@@ -42,7 +42,7 @@ public class MainPresenterTest {
 
         when(storageInteractor.getSavedDataFromFile()).thenReturn(items);
 
-        mainPresenter.onAppLoadShowStoredListData();
+//        mainPresenter.onAppLoadShowStoredListData();
 
         verify(mainView).populateListViewOnAdapter(items);
     }

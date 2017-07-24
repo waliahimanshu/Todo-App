@@ -16,7 +16,6 @@ public class MainPresenter implements MainTaskContract.Presenter {
 
     @Override
     public void validateItemEntered() {
-
         String item = view.getUserEnteredItem();
         if (item.isEmpty()) {
 //            view.(R.string.empty_item_error_message);
@@ -35,7 +34,7 @@ public class MainPresenter implements MainTaskContract.Presenter {
     }
 
     @Override
-    public void UpdateSavedTasks(ArrayList<String> items) {
-        storageInteractor.WriteToFile(items);
+    public void updateSavedTasks(ArrayList<String> items) {
+        storageInteractor.writeToFile(items);
     }
 }
